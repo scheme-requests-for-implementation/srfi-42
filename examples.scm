@@ -167,6 +167,11 @@
 (my-check (vector-ec (:range i 1) i) => (vector 0))
 (my-check (vector-ec (:range i 2) i) => (vector 0 1))
 
+(my-check (vector-of-length-ec 1 1) => (vector 1))
+(my-check (vector-of-length-ec 0 (:range i 0) i) => (vector))
+(my-check (vector-of-length-ec 1 (:range i 1) i) => (vector 0))
+(my-check (vector-of-length-ec 2 (:range i 2) i) => (vector 0 1))
+
 (my-check (sum-ec 1) => 1)
 (my-check (sum-ec (:range i 0) i) => 0)
 (my-check (sum-ec (:range i 1) i) => 0)
@@ -204,16 +209,16 @@
 (my-check (last-ec #f (:range i 1) i) => 0)
 (my-check (last-ec #f (:range i 2) i) => 1)
 
-(my-check (exists?-ec #f) => #f)
-(my-check (exists?-ec #t) => #t)
-(my-check (exists?-ec (:range i 2 2) (even? i)) => #f)
-(my-check (exists?-ec (:range i 2 3) (even? i)) => #t)
+(my-check (any?-ec #f) => #f)
+(my-check (any?-ec #t) => #t)
+(my-check (any?-ec (:range i 2 2) (even? i)) => #f)
+(my-check (any?-ec (:range i 2 3) (even? i)) => #t)
 
-(my-check (forall?-ec #f) => #f)
-(my-check (forall?-ec #t) => #t)
-(my-check (forall?-ec (:range i 2 2) (even? i)) => #t)
-(my-check (forall?-ec (:range i 2 3) (even? i)) => #t)
-(my-check (forall?-ec (:range i 2 4) (even? i)) => #f)
+(my-check (every?-ec #f) => #f)
+(my-check (every?-ec #t) => #t)
+(my-check (every?-ec (:range i 2 2) (even? i)) => #t)
+(my-check (every?-ec (:range i 2 3) (even? i)) => #t)
+(my-check (every?-ec (:range i 2 4) (even? i)) => #f)
 
 (my-check 
  (let ((sum-sqr (lambda (x result) (+ result (* x x)))))

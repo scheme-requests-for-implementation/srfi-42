@@ -628,7 +628,7 @@
 (define (make-initial-:-dispatch)
   (lambda (args)
     (case (length args)
-      ((0) 'Eager-Comprehensions-SRFI)
+      ((0) 'SRFI42)
       ((1) (let ((a1 (car args)))
              (cond
               ((list? a1)
@@ -680,18 +680,18 @@
               (else
                #f ))))
       (else
-       (letrec ((forall? 
+       (letrec ((every? 
                  (lambda (pred args)
                    (if (null? args)
                        #t
                        (and (pred (car args))
-                            (forall? pred (cdr args)) )))))
+                            (every? pred (cdr args)) )))))
          (cond
-          ((forall? list? args)
+          ((every? list? args)
            (:generator-proc (:list (apply append args))) )
-          ((forall? string? args)
+          ((every? string? args)
            (:generator-proc (:string (apply string-append args))) )
-          ((forall? vector? args)
+          ((every? vector? args)
            (:generator-proc (:list (apply append (map vector->list args)))) )
           (else
            #f )))))))
@@ -802,6 +802,28 @@
 ;   than for string-ec and as there is no vector-append, the intermediate
 ;   vectors must be copied explicitly.
 
+(define-syntax vector-of-length-ec
+  (syntax-rules (nested)
+    ((vector-of-length-ec k (nested q1 ...) q etc1 etc ...)
+     (vector-of-length-ec k (nested q1 ... q) etc1 etc ...) )
+    ((vector-of-length-ec k q1 q2             etc1 etc ...)
+     (vector-of-length-ec k (nested q1 q2)    etc1 etc ...) )
+    ((vector-of-length-ec k expression)
+     (vector-of-length-ec k (nested) expression) )
+
+    ((vector-of-length-ec k qualifier expression)
+     (let ((len k))
+       (let ((vec (make-vector len))
+             (i 0) )
+         (do-ec qualifier
+                (if (< i len)
+                    (begin (vector-set! vec i expression)
+                           (set! i (+ i 1)) )
+                    (error "vector is too short for the comprehension") ))
+         (if (= i len)
+             vec
+             (error "vector is too long for the comprehension") ))))))
+
 
 (define-syntax sum-ec
   (syntax-rules ()
@@ -905,29 +927,30 @@
 
 
 ; ==========================================================================
-; The early-stopping comprehensions exists?-ec forall?-ec
+; The early-stopping comprehensions any?-ec every?-ec
 ; ==========================================================================
 
-(define-syntax exists?-ec
+(define-syntax any?-ec
   (syntax-rules (nested)
-    ((exists?-ec (nested q1 ...) q etc1 etc ...)
-     (exists?-ec (nested q1 ... q) etc1 etc ...) )
-    ((exists?-ec q1 q2             etc1 etc ...)
-     (exists?-ec (nested q1 q2)    etc1 etc ...) )
-    ((exists?-ec expression)
-     (exists?-ec (nested) expression) )
+    ((any?-ec (nested q1 ...) q etc1 etc ...)
+     (any?-ec (nested q1 ... q) etc1 etc ...) )
+    ((any?-ec q1 q2             etc1 etc ...)
+     (any?-ec (nested q1 q2)    etc1 etc ...) )
+    ((any?-ec expression)
+     (any?-ec (nested) expression) )
 
-    ((exists?-ec qualifier expression)
+    ((any?-ec qualifier expression)
      (first-ec #f qualifier (if expression) #t) )))
 
-(define-syntax forall?-ec
+(define-syntax every?-ec
   (syntax-rules (nested)
-    ((forall?-ec (nested q1 ...) q etc1 etc ...)
-     (forall?-ec (nested q1 ... q) etc1 etc ...) )
-    ((forall?-ec q1 q2             etc1 etc ...)
-     (forall?-ec (nested q1 q2)    etc1 etc ...) )
-    ((forall?-ec expression)
-     (forall?-ec (nested) expression) )
+    ((every?-ec (nested q1 ...) q etc1 etc ...)
+     (every?-ec (nested q1 ... q) etc1 etc ...) )
+    ((every?-ec q1 q2             etc1 etc ...)
+     (every?-ec (nested q1 q2)    etc1 etc ...) )
+    ((every?-ec expression)
+     (every?-ec (nested) expression) )
 
-    ((forall?-ec qualifier expression)
+    ((every?-ec qualifier expression)
      (first-ec #t qualifier (if (not expression)) #f) )))
+

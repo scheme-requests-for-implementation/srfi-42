@@ -353,13 +353,13 @@
 
 (define (perf-:vector1 iterations n)
   (do-ec 
-   (:let v (vector-ec (:range i n) i))
+   (:let v (vector-of-length-ec n (:range i n) i))
    (:range i iterations) 
    (do-ec (:vector1 x v v v v v v v v v v) x) ))
 
 (define (perf-:vector2 iterations n)
   (do-ec 
-   (:let v (vector-ec (:range i n) i))
+   (:let v (vector-of-length-ec n (:range i n) i))
    (:range i iterations) 
    (do-ec (:vector2 x v v v v v v v v v v) x) ))
 
@@ -368,3 +368,4 @@
 ;   (perf-:vector2 100000 1)
 ;   (perf-:vector1 100 10000)
 ;   (perf-:vector2 100 10000)
+

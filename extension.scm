@@ -76,7 +76,7 @@
 ;   ...more arity cases...
     (else
      (cond
-      ((forall?-ec (:list a args) (list? a))
+      ((every?-ec (:list a args) (list? a))
        (:generator-proc (:list (apply append args))) )
 ;     ...more large variable arity cases...
       (else
@@ -178,3 +178,4 @@
   (display my-check-wrong)
   (newline)
   (newline) )
+

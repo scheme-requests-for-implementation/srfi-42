@@ -104,3 +104,4 @@
 ;   (stream-null? s1) => <0> #f
 ;   (stream-null? (stream-cdr s1)) => <1> #f
 ;   (stream->list s1) => <2><3>..<9> '(0 1 .. 9)
+
