@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN""http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
   <head>
     <title>SRFI 42: Eager Comprehensions</title>
@@ -435,9 +435,9 @@ Enumeration stops after the first <code>#f</code>.
 </DL>
 
 <DL>
-<DT><a name="first-ec"></a><a name="last-ec"></a><code><pre>
-(first-ec &lt;default&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt;)
-(last-ec  &lt;default&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt;)</code></pre>
+<DT><a name="first-ec"></a><a name="last-ec"></a><code>
+(first-ec &lt;default&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt;)<br>
+(last-ec &nbsp;&lt;default&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt;)</code>
 </DT>
 
 <DD>
@@ -452,9 +452,9 @@ when the first value has been computed.
 </DL>
 
 <DL>
-<DT><a name="fold-ec"></a><a name="fold3-ec"></a><pre><code>
-(fold-ec  &lt;x0&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt;      &lt;f2&gt;)
-(fold3-ec &lt;x0&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt; &lt;f1&gt; &lt;f2&gt;)</pre></code>
+<DT><a name="fold-ec"></a><a name="fold3-ec"></a><code>
+(fold-ec  &nbsp;&lt;x0&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt;      &lt;f2&gt;)<br>
+(fold3-ec &lt;x0&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt; &lt;f1&gt; &lt;f2&gt;)</code>
 </DT>
 
 <DD>
@@ -627,10 +627,10 @@ the subsequent qualifiers of the comprehension are evaluated.
 </DL>
 
 <DL>
-<DT><pre><a name="not"></a><a name="and"></a><a name="or"></a><code>
-(not &lt;test&gt;)
-(and &lt;test&gt;</code>*<code>)
-(or  &lt;test&gt;</code>*<code>)</code></pre>
+<DT><a name="not"></a><a name="and"></a><a name="or"></a><code>
+(not &lt;test&gt;)<br>
+(and &lt;test&gt;</code>*<code>)<br>
+(or  &nbsp;&lt;test&gt;</code>*<code>)</code>
 </DT>
 
 <DD>
@@ -799,10 +799,10 @@ for recommendation how to add cases to the dispatcher.
 </DL>
 
 <DL>
-<DT><pre><a name=":list"></a><a name=":string"></a><a name=":vector"></a><code>
-(:list   &lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;</code>*<code>)
-(:string &lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;</code>*<code>)
-(:vector &lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;</code>*<code>)</code></pre>
+<DT><a name=":list"></a><a name=":string"></a><a name=":vector"></a><code>
+(:list   &nbsp;&nbsp;&lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;</code>*<code>)<br>
+(:string &lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;</code>*<code>)<br>
+(:vector &lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;</code>*<code>)</code>
 </DT>
 
 <DD>
@@ -834,10 +834,10 @@ a non-local exit in the body of the comprehension.
 </DL>
 
 <DL>
-<DT><pre><a name=":range"></a><code>
-(:range &lt;vars&gt;         &lt;stop&gt;)
-(:range &lt;vars&gt; &lt;start&gt; &lt;stop&gt;)
-(:range &lt;vars&gt; &lt;start&gt; &lt;stop&gt; &lt;step&gt;)</code></pre>
+<DT><a name=":range"></a><code>
+(:range &lt;vars&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;stop&gt;)<br>
+(:range &lt;vars&gt; &lt;start&gt; &lt;stop&gt;)<br>
+(:range &lt;vars&gt; &lt;start&gt; &lt;stop&gt; &lt;step&gt;)</code>
 </DT>
 
 <DD>
@@ -872,10 +872,10 @@ If <I>n</I> is zero or negative the sequence is empty.
 </DL>
 
 <DL>
-<DT><pre><a name=":real-range"></a><code>
-(:real-range &lt;vars&gt;         &lt;stop&gt;)
-(:real-range &lt;vars&gt; &lt;start&gt; &lt;stop&gt;)
-(:real-range &lt;vars&gt; &lt;start&gt; &lt;stop&gt; &lt;step&gt;)</code></pre>
+<DT><a name=":real-range"></a><code>
+(:real-range &lt;vars&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;stop&gt;)<br>
+(:real-range &lt;vars&gt; &lt;start&gt; &lt;stop&gt;)<br>
+(:real-range &lt;vars&gt; &lt;start&gt; &lt;stop&gt; &lt;step&gt;)</code>
 </DT>
 
 <DD>
@@ -1001,7 +1001,7 @@ or <code>#f</code> (= no interest).
 As an example, the following skeleton code defines a dispatcher 
 similar to the initial dispatcher of <a href="#:"><code>:</code></a>:
 
-<blockquote><pre><code>
+<pre>
 (define (:my-dispatch args)
   (case (length args)
     ((0) 'SRFI-NN)
@@ -1011,35 +1011,35 @@ similar to the initial dispatcher of <a href="#:"><code>:</code></a>:
              (:generator-proc (:list a1)) )
             ((string? a1)
              (:generator-proc (:string a1)) )
-            </code><I>...more unary cases...</I><code>
+            <I>...more unary cases...</I>
             (else
              #f ))))
     ((2) (let ((a1 (car args)) (a2 (cadr args)))
            (cond
             ((and (list? a1) (list? a2))
              (:generator-proc (:list a1 a2)) )
-            </code><I>...more binary cases...</I><code>
+            <I>...more binary cases...</I>
             (else
              #f ))))
-    </code><I>...more arity cases...</I><code>
+    <I>...more arity cases...</I>
     (else
      (cond
       ((every?-ec (:list a args) (list? a))
        (:generator-proc (:list (apply append args))) )
-      </code><I>...more large variable arity cases...</I><code>
+      <I>...more large variable arity cases...</I>
       (else
-       #f )))))</blockquote></pre></code>
+       #f )))))</pre>
 
 Once the dispatcher has been defined, the following macro 
 implements the new dispatching generator:
 
-<blockquote><pre><code>
+<pre>
 (define-syntax :my
   (syntax-rules (index)
     ((:my cc var (index i) arg1 arg ...)
      (:dispatched cc var (index i) :my-dispatch arg1 arg ...) )
     ((:my cc var arg1 arg ...)
-     (:dispatched cc var :my-dispatch arg1 arg ...) )))</blockquote></pre></code>
+     (:dispatched cc var :my-dispatch arg1 arg ...) )))</pre>
 
 This method of extension yields complete control of the dispatching process.
 Other modules can only add cases to <code>:my</code>
@@ -1059,7 +1059,7 @@ In most cases, however, the already installed dispatcher should
 be extended by new cases. 
 The following procedure is a utility for doing so:
 
-<blockquote><code>(dispatch-union </code><I>d1</I><code> </code><I>d2</I><code>) => </code><I>d</I>,</blockquote> 
+<pre>(dispatch-union <I>d1</I> <I>d2</I>) => <I>d</I>,</pre> 
 
 where the new dispatcher <I>d</I> recognizes the union of the
 cases recognized by the dispatchers <I>d1</I> and <I>d2</I>.
@@ -1072,7 +1072,7 @@ is the concatenation of the component identifications
 if necessary.
 For illustration, consider the following code:
 
-<blockquote><pre><code>
+<pre>
 (define (example-dispatch args)
   (cond
    ((null? args)
@@ -1082,11 +1082,11 @@ For illustration, consider the following code:
    (else
     #f )))
 
-(:-dispatch-set! (dispatch-union (:-dispatch-ref) example-dispatch))</code></pre></blockquote>
+(:-dispatch-set! (dispatch-union (:-dispatch-ref) example-dispatch))</pre>
 
 After evaluation of this code, the following example will work:
 
-<blockquote><code>(list-ec (: c 'abc) c) => (#\a #\b #\c)</code></blockquote>
+<pre>(list-ec (: c 'abc) c) => (#\a #\b #\c)</pre>
 
 Adding cases to <a href="#:"><code>:</code></a> is particularly useful 
 for frequent cases of interactive input.
@@ -1096,9 +1096,9 @@ the danger of conflicts, unexpected side-effects, and slow dispatching.
 </DL>
 
 <DL>
-<DT><pre><a name=":do"></a><code>
-(:do                     (&lt;lb&gt;</code>*<code>) &lt;ne1?&gt;                            (&lt;ls&gt;</code>*<code>))
-(:do (let (&lt;ob&gt;</code>*<code>) &lt;oc&gt;</code>*<code>) (&lt;lb&gt;</code>*<code>) &lt;ne1?&gt; (let (&lt;ib&gt;</code>*<code>) &lt;ic&gt;</code>*<code>) &lt;ne2?&gt; (&lt;ls&gt;</code>*<code>))</code></pre>
+<DT><a name=":do"></a><code>
+(:do (&lt;lb&gt;</code>*<code>) &lt;ne1?&gt; (&lt;ls&gt;</code>*<code>))<br>
+(:do (let (&lt;ob&gt;</code>*<code>) &lt;oc&gt;</code>*<code>) (&lt;lb&gt;</code>*<code>) &lt;ne1?&gt; (let (&lt;ib&gt;</code>*<code>) &lt;ic&gt;</code>*<code>) &lt;ne2?&gt; (&lt;ls&gt;</code>*<code>))</code>
 </DT>
 
 <DD>
@@ -1121,19 +1121,19 @@ In the fully decorated form, the syntactic variables
 <code>&lt;ls&gt;</code> (loop step)
 define the following loop skeleton:
 
-<blockquote><pre><code>
-(let (&lt;ob&gt;</code>*</code>)
-  &lt;oc&gt;</code>*</code>
-  (let loop (&lt;lb&gt;</code>*</code>) 
+<pre>
+(let (&lt;ob&gt;*)
+  &lt;oc&gt;*
+  (let loop (&lt;lb&gt;*) 
     (if &lt;ne1?&gt;
-        (let (&lt;ib&gt;</code>*</code>)
-          &lt;ic&gt;</code>*</code>
-          </code><I>payload</I><code>
+        (let (&lt;ib&gt;*)
+          &lt;ic&gt;*
+          <I>payload</I>
           (if &lt;ne2?&gt;
-              (loop &lt;ls&gt;</code>*</code>) )))))</code>,</pre></blockquote>
+              (loop &lt;ls&gt;*) ))))),</pre>
 
-where <code>&lt;oc&gt;</code>*</code> and
-<code>&lt;ic&gt;</code>*</code> are syntactically
+where <code>&lt;oc&gt;*</code> and
+<code>&lt;ic&gt;*</code> are syntactically
 equivalent to <code>&lt;command&gt;</code>*,
 i.e. they do not begin with a <code>&lt;definition&gt;</code>.
 The latter requirement allows the code generator to
@@ -1237,11 +1237,11 @@ in terms of <a href="#:list"><code>:list</code></a>
 using the additional syntactic variable <code>cc</code> 
 (read <I>current continuation</I>):
 
-<blockquote><pre><code>
+<pre>
 (define-syntax :mygen
   (syntax-rules ()
     ((:mygen cc var arg)
-     (:list cc var (reverse arg)) )))</code></pre></blockquote>
+     (:list cc var (reverse arg)) )))</pre>
 
 After this definition, any comprehension will accept 
 the <code>:mygen</code>-generator and produce the
@@ -1297,7 +1297,7 @@ Suggestions for application-specific extensions</H1>
 In order to create an array from a sequence of elements,
 a comprehension with the following syntax would be useful:
 
-<blockquote><code>(array-ec &lt;shape&gt; &lt;qualifier&gt;</code>*<code> &lt;expression&gt;)</code>.</blockquote>
+<pre>(array-ec &lt;shape&gt; &lt;qualifier&gt;* &lt;expression&gt;).</pre>
 
 The comprehension constructs a new array of the given shape
 by filling it row-major with the sequence of elements as specified 
@@ -1306,7 +1306,7 @@ by the qualifiers.
 On the generator side, it would be most useful to have a
 generator of the form
 
-<blockquote><code>(:array &lt;vars&gt; &lt;arg&gt;)</code>,</blockquote>
+<pre>(:array &lt;vars&gt; &lt;arg&gt;),</pre>
 
 running through the elements of the array in row-major.
 For the optional index variable, the extension 
@@ -1320,9 +1320,9 @@ are variable names indexing the various dimensions.
 In order to create a vector or list of random numbers,
 it would be convenient to have generators of the following form:
 
-<blockquote><pre><code>
+<pre>
 (:random-integer [ &lt;range&gt; [ &lt;number&gt; ] ] )
-(:random-real    [ &lt;number&gt; ] )</code></pre></blockquote>
+(:random-real &nbsp;&nbsp;&nbsp;[ &lt;number&gt; ] )</pre>
 
 where <code>&lt;range&gt;</code> (default 2) indicates the range of 
 the integers and <code>&lt;number&gt;</code> (default infinity)
@@ -1337,7 +1337,7 @@ As eager comprehensions are efficient, they can be useful
 for operations involving strings of bits.
 It could be useful to have the following comprehension:
 
-<blockquote><code>(bitwise-ec &lt;qualifier&gt;</code>*<code> &lt;expression&gt;)</code>,</blockquote>
+<pre>(bitwise-ec &lt;qualifier&gt;* &lt;expression&gt;),</pre>
 
 which constructs an integer from bits obtained as values
 of <code>&lt;expression&gt;</code> in the ordering defined
@@ -1347,7 +1347,7 @@ In other words, if the sequence of values is
 the result is <I>x</I>[0] + <I>x</I>[1] 2 + ... + <I>x</I>[<I>n</I>-1] 2^(<I>n</I>-1).
 On the generator side, a generator of the form
 
-<blockquote><code>(:bitwise &lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;</code>*<code>)</code></blockquote>
+<pre>(:bitwise &lt;vars&gt; &lt;arg1&gt; &lt;arg&gt;*)</pre>
 
 runs through the sequence of bits obtained by appending the
 binary digits of the integers <code>&lt;arg1&gt; &lt;arg&gt;</code>*.
@@ -1381,9 +1381,9 @@ Nevertheless, these generators would be useful for
 reading through the lines of a file or through the
 characters of a file:
 
-<blockquote><pre><code>
+<pre>
 (:lines-of-file &lt;vars&gt; &lt;file&gt;)
-(:chars-of-file &lt;vars&gt; [ (line &lt;variable1&gt;) ] [ (column &lt;variable2&gt;) ] &lt;file&gt;)</code></pre></blockquote>
+(:chars-of-file &lt;vars&gt; [ (line &lt;variable1&gt;) ] [ (column &lt;variable2&gt;) ] &lt;file&gt;)</pre>
 
 Here <code>&lt;file&gt;</code> is either an input port
 or a string interpreted as a filename.
@@ -1707,7 +1707,7 @@ local copy of the original dispatching generator
 <a href="#:"><code>:</code></a>,
 for example with the following code
 
-<blockquote><pre><code>
+<pre>
 (define :my-dispatch
   (make-initial-:-dispatch) )
 
@@ -1716,7 +1716,7 @@ for example with the following code
     ((:my cc var (index i) arg1 arg ...)
      (:dispatched cc var (index i) :my-dispatch arg1 arg ...) )
     ((:my cc var arg1 arg ...)
-     (:dispatched cc var :my-dispatch arg1 arg ...) )))</code>,</pre></blockquote>
+     (:dispatched cc var :my-dispatch arg1 arg ...) ))),</pre>
 
 and to use the new generator <code>:my</code> instead of
 <a href="#:"><code>:</code></a>.<P>
@@ -2125,7 +2125,7 @@ PARTICULAR PURPOSE.
     <address>Editor: <a href="mailto:srfi-editors@srfi.schemers.org">Francisco Solsona</a></address>
 <!-- Created: Tue Feb 4 13:21:00 MST 2003 -->
 <!-- hhmts start -->
-Last modified: Mon Jul  7 10:01:50 CDT 2003
+Last modified: Tue Apr  5 10:43:00 CEST 2005
 <!-- hhmts end -->
 
   </body>
