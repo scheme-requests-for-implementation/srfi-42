@@ -2,18 +2,18 @@
 ; Examples for Eager Comprehensions in [outer..inner|expr]-Convention
 ; ===================================================================
 ;
-; sebastian.egner@philips.com, Eindhoven, The Netherlands, Feb-2003.
+; sebastian.egner@philips.com, Eindhoven, The Netherlands, 25-Apr-2005.
 ; Scheme R5RS (incl. macros), SRFI-23 (error).
 ; 
-; Running the examples in Scheme48 (version 0.57):
+; Running the examples in Scheme48 (version 1.1):
 ;   ,open srfi-23
 ;   ,load ec.scm
 ;   (define my-open-output-file open-output-file)
 ;   (define my-call-with-input-file call-with-input-file)
 ;   ,load examples.scm
 ;
-; Running the examples in PLT/DrScheme (version 202): 
-;   ; open "ec.scm", click Execute
+; Running the examples in PLT/DrScheme (version 208): 
+;   (load "ec.scm")
 ;   (define (my-open-output-file filename)
 ;     (open-output-file filename 'replace 'text) )
 ;   (define (my-call-with-input-file filename thunk)
@@ -336,6 +336,69 @@
  (list-ec (:until (:range i 1 10) (>= i 5)) i)
  => '(1 2 3 4 5) )
 
+; with generator that might use inner bindings
+
+(my-check
+ (list-ec (:while (:list i '(1 2 3 4 5 6 7 8 9)) (< i 5)) i)
+ => '(1 2 3 4) )
+; Was broken in original reference implementation as pointed
+; out by sunnan@handgranat.org on 24-Apr-2005 comp.lang.scheme.
+; Refer to http://groups-beta.google.com/group/comp.lang.scheme/
+; browse_thread/thread/f5333220eaeeed66/75926634cf31c038#75926634cf31c038
+
+(my-check 
+ (list-ec (:until (:list i '(1 2 3 4 5 6 7 8 9)) (>= i 5)) i)
+ => '(1 2 3 4 5) )
+
+; combine :while/:until and :parallel
+
+(my-check
+ (list-ec (:while (:parallel (:range i 1 10)
+                             (:list j '(1 2 3 4 5 6 7 8 9)))
+                  (< i 5))
+          (list i j))
+ => '((1 1) (2 2) (3 3) (4 4)))
+
+(my-check
+ (list-ec (:until (:parallel (:range i 1 10)
+                             (:list j '(1 2 3 4 5 6 7 8 9)))
+                  (>= i 5))
+          (list i j))
+ => '((1 1) (2 2) (3 3) (4 4) (5 5)))
+
+; check that :while/:until really stop the generator
+
+(my-check
+ (let ((n 0))
+   (do-ec (:while (:range i 1 10) (begin (set! n (+ n 1)) (< i 5)))
+          (if #f #f))
+   n)
+ => 5)
+
+(my-check
+ (let ((n 0))
+   (do-ec (:until (:range i 1 10) (begin (set! n (+ n 1)) (>= i 5)))
+          (if #f #f))
+   n)
+ => 5)
+
+(my-check
+ (let ((n 0))
+   (do-ec (:while (:parallel (:range i 1 10)
+                             (:do () (begin (set! n (+ n 1)) #t) ()))
+                  (< i 5))
+          (if #f #f))
+   n)
+ => 5)
+
+(my-check
+ (let ((n 0))
+   (do-ec (:until (:parallel (:range i 1 10)
+                             (:do () (begin (set! n (+ n 1)) #t) ()))
+                  (>= i 5))
+          (if #f #f))
+   n)
+ => 5)
 
 ; ==========================================================================
 ; The dispatching generator
