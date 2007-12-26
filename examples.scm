@@ -2,7 +2,7 @@
 ; Examples for Eager Comprehensions in [outer..inner|expr]-Convention
 ; ===================================================================
 ;
-; sebastian.egner@philips.com, Eindhoven, The Netherlands, 25-Apr-2005.
+; sebastian.egner@philips.com, Eindhoven, The Netherlands, 26-Dec-2007.
 ; Scheme R5RS (incl. macros), SRFI-23 (error).
 ; 
 ; Running the examples in Scheme48 (version 1.1):
@@ -12,7 +12,7 @@
 ;   (define my-call-with-input-file call-with-input-file)
 ;   ,load examples.scm
 ;
-; Running the examples in PLT/DrScheme (version 208): 
+; Running the examples in PLT/DrScheme (version 317): 
 ;   (load "ec.scm")
 ;   (define (my-open-output-file filename)
 ;     (open-output-file filename 'replace 'text) )
@@ -349,6 +349,15 @@
 (my-check 
  (list-ec (:until (:list i '(1 2 3 4 5 6 7 8 9)) (>= i 5)) i)
  => '(1 2 3 4 5) )
+
+(my-check
+ (list-ec (:while (:vector x (index i) '#(1 2 3 4 5))
+		  (< x 10))
+	  x)
+ => '(1 2 3 4 5))
+; Was broken in reference implementation, even after fix for the
+; bug reported by Sunnan, as reported by Jens-Axel Soegaard on
+; 4-Jun-2007.
 
 ; combine :while/:until and :parallel
 
