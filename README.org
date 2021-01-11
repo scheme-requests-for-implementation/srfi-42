@@ -10,6 +10,8 @@ This repository hosts [[https://srfi.schemers.org/srfi-42/][SRFI 42]]: Eager Com
 
 This SRFI is in /final/ status.
 
+See also [[https://srfi.schemers.org/srfi-196/][SRFI 196: Range Objects]].
+
 The full documentation for this SRFI can be found in the [[https://srfi.schemers.org/srfi-42/srfi-42.html][SRFI Document]].
 
 If you'd like to participate in the discussion of this SRFI, or report issues with it, please [[https://srfi.schemers.org/srfi-42/][join the SRFI-42 mailing list]] and send your message there.
