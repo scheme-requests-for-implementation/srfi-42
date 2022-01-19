@@ -1,23 +1,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN""http://www.w3.org/TR/REC-html40/loose.dtd">
-<html>
+<html lang="en">
   <head>
     <title>SRFI 42: Eager Comprehensions</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/srfi.css" type="text/css" />
+    <link rel="stylesheet" href="https://srfi.schemers.org/srfi.css" type="text/css" />
+    <link href="/favicon.png" rel="icon" sizes="192x192" type="image/png">
   </head>
 
   <body>
 
-<H1>Title</H1>
+<h1><a href="https://srfi.schemers.org/"><img class="srfi-logo" src="https://srfi.schemers.org/srfi-logo.svg" alt="SRFI surfboard logo" /></a>42: Eager Comprehensions</h1>
 
-Eager Comprehensions
+<p>by Sebastian Egner</p>
 
-<H1>Author</H1>
-
-Sebastian Egner
-
-<H1>Status</H1>
+<h2>Status</h2>
 
 <p>This SRFI is currently in <em>final</em> status.  Here is <a href="https://srfi.schemers.org/srfi-process.html">an explanation</a> of each status that a SRFI can hold.  To provide input on this SRFI, please send email to <code><a href="mailto:srfi+minus+42+at+srfi+dotschemers+dot+org">srfi-42@<span class="antispam">nospam</span>srfi.schemers.org</a></code>.  To subscribe to the list, follow <a href="https://srfi.schemers.org/srfi-list-subscribe.html">these instructions</a>.  You can access previous messages via the mailing list <a href="https://srfi-email.schemers.org/srfi-42">archive</a>.</p>
 <UL>
@@ -27,7 +24,7 @@ Sebastian Egner
   <LI>Final: 2003-07-07
 </UL>
 
-<H1>Abstract</H1>
+<h2>Abstract</h2>
 
 This SRFI defines a modular and portable mechanism for
 eager comprehensions extending the algorithmic language Scheme
@@ -159,7 +156,7 @@ implementation together with a collection of runnable
 examples and a few examples on extensions.
 
 
-<H1><a name="rationale"></a>Rationale</H1>
+<h2 id="rationale">Rationale</h2>
 
 The purpose of this SRFI is to provide a compact notation
 for many common cases of loops, in particular those
@@ -216,7 +213,7 @@ As a starting point for doing so, I have included several
 For a detailed motivation of the design decisions,
 please refer to the <a href="#design">Section "Design Rationale"</a>.<P>
 
-<H1><a name="specification"></a>Specification</H1>
+<h2 id="specification">Specification</h2>
 
 A comprehension is a hygienic, referentially transparent macro
 in the sense of <a href="#R5RS">[R5RS, 4.3.]</a>.
@@ -255,7 +252,7 @@ ensure new comprehensions and generators blend seamlessly with
 the ones defined in this SRFI.<P>
 
 
-<H2><a name="comprehensions"></a>Comprehensions</H2>
+<h3 id="comprehensions">Comprehensions</h3>
 
 <DL>
 <DT><a name="do-ec"></a>
@@ -570,7 +567,7 @@ no further definitions are necessary.
 </DL>
 
 
-<H2><a name="qualifiers"></a>Qualifiers</H2>
+<h3 id="qualifiers">Qualifiers</h3>
 
 This section defines the syntax <code>&lt;qualifier&gt;</code>.
 The nesting of qualifiers is from left (outer) to right (inner).
@@ -661,7 +658,7 @@ qualifiers into a form with exactly one qualifier.
 </DL>
 
 
-<H2><a name="generators"></a>Generators</H2>
+<h3 id="generators">Generators</h3>
 
 This section defines the syntax <code>&lt;generator&gt;</code>.
 Each generator defines a sequence of bindings through
@@ -1276,10 +1273,10 @@ make sure expressions are evaluated at the correct time.
 </DD>
 </DL>
 
-<H1><a name="ext-examples"></a>
-Suggestions for application-specific extensions</H1>
+<h2 id="ext-examples">
+Suggestions for application-specific extensions</h2>
 
-<H3>Arrays in the sense of <a href="#SRFI25">[SRFI25]</a></H3>
+<h3>Arrays in the sense of <a href="#SRFI25">[SRFI25]</a></h3>
 
 In order to create an array from a sequence of elements,
 a comprehension with the following syntax would be useful:
@@ -1302,7 +1299,7 @@ could be defined where <code>&lt;k1&gt; &lt;k&gt;</code>*
 are variable names indexing the various dimensions.
 
 
-<H3>Random Numbers in the sense of <a href="#SRFI27">[SRFI27]</a></H3>
+<h3>Random Numbers in the sense of <a href="#SRFI27">[SRFI27]</a></h3>
 
 In order to create a vector or list of random numbers,
 it would be convenient to have generators of the following form:
@@ -1318,7 +1315,7 @@ Derived from these basic generators, one could define several
 other generators for other distributions (e.g. Gaussian).
 
 
-<H3>Bitstrings in the sense of <a href="#SRFI33">[SRFI33]</a></H3>
+<h3>Bitstrings in the sense of <a href="#SRFI33">[SRFI33]</a></h3>
 
 As eager comprehensions are efficient, they can be useful
 for operations involving strings of bits.
@@ -1339,7 +1336,7 @@ On the generator side, a generator of the form
 runs through the sequence of bits obtained by appending the
 binary digits of the integers <code>&lt;arg1&gt; &lt;arg&gt;</code>*.
 
-<H3><a name="srfi40-ec"></a>Streams in the sense of <a href="#SRFI40">[SRFI 40]</a></H3>
+<h3><a name="srfi40-ec"></a>Streams in the sense of <a href="#SRFI40">[SRFI 40]</a></h3>
 
 It is possible to 'lazify' the eager comprehension
 <a href="#list-ec"><code>list-ec</code></a>,
@@ -1359,7 +1356,7 @@ only when necessary.
 In some implementations of Scheme this may involve
 considerable overhead.
 
-<H3>Reading Text Files</H3>
+<h3>Reading Text Files</h3>
 
 Eager comprehensions can also be used to process files.
 However, bear in mind that an eager comprehension wants
@@ -1377,7 +1374,7 @@ or a string interpreted as a filename.
 In a similar fashion, generators reading from sockets defined
 by URLs or other communication facilities could be defined.
 
-<H3>The Scheme shell <a href="#SCSH">Scsh</a></H3>
+<h3>The Scheme shell <a href="#SCSH">Scsh</a></h3>
 
 In the Scheme-shell Scsh it could be useful to have certain
 comprehensions and generators.
@@ -1401,9 +1398,9 @@ define a useful set of comprehensions and generators
 for Scsh.
 
 
-<H1><a name="design"></a>Design Rationale</H1>
+<h2 id="design">Design Rationale</h2>
 
-<H3>What is the difference between eager and lazy comprehensions?</H3>
+<h3>What is the difference between eager and lazy comprehensions?</h3>
 
 A lazy comprehension, for example <code>stream-of</code> in the
 sense of <a href="#SRFI40">[SRFI 40]</a>, constructs an object
@@ -1421,8 +1418,8 @@ be formulated in terms of it, whereas the most fundamental
 <I>eager</I> comprehension is <code>do-ec</code>.
 
 
-<H3><a name="convention"></a>Why the [<I>outer</I> .. <I>inner</I> | <I>expr</I>]
-order of qualifiers?</H3>
+<h3><a name="convention"></a>Why the [<I>outer</I> .. <I>inner</I> | <I>expr</I>]
+order of qualifiers?</h3>
 
 In principle, there are six possible orders in which the
 qualifiers and the expression of a comprehension can be written.
@@ -1493,7 +1490,7 @@ As a downside, the convention clashes with other the
 convention used in other languages (e.g. Haskell and Python).
 
 
-<H3>You forgot [<I>choose your favorite here</I>]-ec!</H3>
+<h3>You forgot [<I>choose your favorite here</I>]-ec!</h3>
 
 I tried to construct a reasonably useful set of tools
 according to what <a href="#R5RS">[R5RS]</a> specifies.
@@ -1528,7 +1525,7 @@ and friends because they are universally needed, and
 primarily intended for implementing <a href="#:"><code>:</code></a>.
 
 
-<H3><a name="dovetail"></a>Why is the order of enumeration specified?</H3>
+<h3><a name="dovetail"></a>Why is the order of enumeration specified?</h3>
 
 For the purpose of this SRFI, every generator runs through
 its sequence of bindings in a well specified order, and nested
@@ -1546,7 +1543,7 @@ Interleaving ensures that any value of the resulting stream is
 produced after a finite amount of time, even if one or more
 inner streams are infinite.
 
-<H3>Why both typed and dispatching generators?</H3>
+<h3>Why both typed and dispatching generators?</h3>
 
 The reason for typed generators is runtime efficiency.
 In fact, the code produced by <code>:range</code> and others
@@ -1555,7 +1552,7 @@ The primary purpose of the dispatching generator is convenience.
 It comes at the price of reduced runtime performance,
 both for loop iteration and startup.
 
-<H3>Why the <I>something</I><code>-ec</code> and <code>:</code><I>type</I> naming?</H3>
+<h3>Why the <I>something</I><code>-ec</code> and <code>:</code><I>type</I> naming?</h3>
 
 The purpose of the <code>:</code><I>type</I> convention is to keep
 many common comprehensions down to one-liners.
@@ -1565,7 +1562,7 @@ The <I>something</I><code>-ec</code> convention is primarily intended to
 stay away from the widely used <I>something</I><code>-of</code>.
 It reduces confusion and conflict with related mechanisms.
 
-<H3>Why combine variable binding and sequence definition?</H3>
+<h3>Why combine variable binding and sequence definition?</h3>
 
 The generators of this SRFI do two different things with
 a single syntactic construct: They define a sequence of values
@@ -1586,7 +1583,7 @@ Thirdly, this SRFI aims at the highest possible performance for
 typed generators, which is achieved if the state being manipulated
 is represented by the loop variable itself.
 
-<H3>Why is <code>(: &lt;vars&gt;)</code> illegal?</H3>
+<h3>Why is <code>(: &lt;vars&gt;)</code> illegal?</h3>
 
 It is reasonable and easy to define <code>(<a href="#:">:</a> &lt;vars&gt;)</code>
 as <code>(<a href="#:integers">:integers</a> &lt;vars&gt;)</code>,
@@ -1597,7 +1594,7 @@ or an argument for the enumeration.
 As this would lead to an infinite loop (not always
 equally pleasant in interactive sessions), it is not allowed.
 
-<H3>Why is there no <code>:sequential</code>?</H3>
+<h3>Why is there no <code>:sequential</code>?</h3>
 
 Just like <a href="#:parallel"><code>:parallel</code></a>
 enumerates generators in
@@ -1609,7 +1606,7 @@ that the generators should use all the same variable name
 and there is no hygienic and referentially transparent
 way of enforcing this (or even knowing the variable).
 
-<H3>Why is there no general <code>let</code>-qualifier?</H3>
+<h3>Why is there no general <code>let</code>-qualifier?</h3>
 
 It is easy to add <code>let</code>, <code>let*</code>,
 and <code>letrec</code> as cases to <code>&lt;qualifier&gt;</code>.
@@ -1641,7 +1638,7 @@ So including an invitation to overuse the mechanism would
 be a serious violation of the
 <I>Keep It Simple and Stupid</I> principle.
 
-<H3>Why is there no <code>:nested</code> generator?</H3>
+<h3>Why is there no <code>:nested</code> generator?</h3>
 
 The specification above defines <a href="#nested"><code>nested</code></a>
 as a qualifier but <a href="#:parallel"><code>:parallel</code></a>
@@ -1657,7 +1654,7 @@ However, nested generators cannot be merged easily without
 losing the type of the generator,
 which would seriously hurt modularity and performance.
 
-<H3>Is <code>any?-ec</code> eager?</H3>
+<h3>Is <code>any?-ec</code> eager?</h3>
 
 Yes, it is still eager because it immediately starts to
 run through the sequence.<P>
@@ -1670,7 +1667,7 @@ execute efficiently so they can be used conveniently
 as in
 <code>(every?-ec (:list x my-list) (pred? x))</code>.
 
-<H3>Why this whole <code>:dispatched</code> business?</H3>
+<h3>Why this whole <code>:dispatched</code> business?</h3>
 
 It is specified above that <I>the</I> dispatching generator,
 called <a href="#:"><code>:</code></a>, is just a special case
@@ -1729,7 +1726,7 @@ arity and the identifier for the variable cannot be
 distinguished from any value for a dispatcher,
 this is syntactically problematic.
 
-<H3>Why is there no local mechanism for adding to <a href="#:"><code>:</code></a>?</H3>
+<h3>Why is there no local mechanism for adding to <a href="#:"><code>:</code></a>?</h3>
 
 According to <a href="#R5RS">[R5RS, 7.1.6.]</a> macros can only
 be defined at the level of the <code>&lt;program&gt;</code> syntax.
@@ -1741,7 +1738,7 @@ of dispatched generators either.
 Furthermore, locally extendable dispatchers are another major
 headache to those trying to understand other people's code.
 
-<H3>Why are dispatchers unary?</H3>
+<h3>Why are dispatchers unary?</h3>
 
 As defined in <a href="#:dispatched"><code>:dispatched</code></a>,
 a dispatching procedure is called with a single argument being
@@ -1757,7 +1754,7 @@ the heap.
 As a dispatcher may call many other dispatchers, this will adds
 to the overhead of dispatching, which is relevant in inner loops.
 
-<H3>Why are there two fold comprehensions?</H3>
+<h3>Why are there two fold comprehensions?</h3>
 
 The reason for having two fold comprehensions
 (<a href="#fold-ec"><code>fold-ec</code></a> and
@@ -1779,7 +1776,7 @@ The names <code>fold-ec</code> and <code>fold3-ec</code>
 have been chosen for the comprehensions in order to stay
 clear any other 'fold' that may be around.
 
-<H3>Why is <code>:char-range</code> not defined by <code>integer->char</code>?</H3>
+<h3>Why is <code>:char-range</code> not defined by <code>integer->char</code>?</h3>
 
 The definition of <a href="#:char-range"><code>:char-range</code></a>
 specifies a sequence of adjacent characters ordered by <code>char&lt;=?</code>.
@@ -1790,7 +1787,7 @@ whether the integers representing characters are consecutive or not.
 In effect, this underspecification is inherited by <code>:char-range</code>.
 
 
-<H1><a name="related-work"></a>Related Work and Acknowledgements</H1>
+<h2 id="related-work">Related Work and Acknowledgements</h2>
 
 Several other proposals related to the mechanism specified here exists.
 The following mechanisms are made for and in Scheme (or at least a
@@ -1893,7 +1890,7 @@ In particular, the dispatching mechanism evolved
 rapidly during discussions with Mike.
 
 
-<H1><a name="refimpl"></a>Implementation</H1>
+<h2 id="refimpl">Implementation</h2>
 
 The reference implementation focuses on portability,
 performance, readability and simplicity, roughly in this order.
@@ -1939,7 +1936,7 @@ as long for startup (due to dispatching).<P>
 The file <a href="extension.scm">extension.scm</a> contains
 examples for adding new generators and comprehensions.<P>
 
-<H1>References</H1>
+<h2>References</h2>
 
 <TABLE>
 
@@ -2080,7 +2077,7 @@ For scsh release 0.6.3.
 
 
 
-<H1>Copyright</H1>
+<h2>Copyright</h2>
 <p>Copyright (C) Sebastian Egner (2003). All Rights Reserved.</p>
 
 <p>
