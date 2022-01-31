@@ -3,14 +3,14 @@
   <head>
     <title>SRFI 42: Eager Comprehensions</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://srfi.schemers.org/srfi.css" type="text/css" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="https://srfi.schemers.org/srfi.css" rel="stylesheet" type="text/css" />
     <link href="/favicon.png" rel="icon" sizes="192x192" type="image/png" />
   </head>
 
   <body>
 
-<h1><a href="https://srfi.schemers.org/"><img class="srfi-logo" src="https://srfi.schemers.org/srfi-logo.svg" alt="SRFI surfboard logo" /></a>42: Eager Comprehensions</h1>
+<h1><a href="https://srfi.schemers.org/"><img alt="SRFI surfboard logo" class="srfi-logo" src="https://srfi.schemers.org/srfi-logo.svg" /></a>42: Eager Comprehensions</h1>
 
 <p>by Sebastian Egner</p>
 
@@ -35,7 +35,7 @@ a sequence of values, and accumulating this sequence into a result.
 In its most simple form, a comprehension according to this SRFI
 looks like this:
 </p>
-<blockquote id="example1"><pre><code>(<a href="#list-ec">list-ec</a> (<a href="#:">:</a> i 5) (* i i)) =&gt; (0 1 4 9 16)</code>.</pre></blockquote>
+<blockquote id="example1"><pre><code>(<a href="#list-ec">list-ec</a> (<a href="#%3A">:</a> i 5) (* i i)) =&gt; (0 1 4 9 16)</code>.</pre></blockquote>
 <p>
 Here, <code>i</code> is a local variable that is sequentially
 bound to the values 0, 1, ..., 4,  and the squares of these
@@ -43,7 +43,7 @@ numbers are collected in a list.
 The following example illustrates most conventions of this SRFI
 with respect to nesting and syntax:
 </p>
-<blockquote><pre><code>(<a href="#list-ec">list-ec</a> (<a href="#:">:</a> n 1 4) (<a href="#:">:</a> i n) (list n i)) =&gt; ((1 0) (2 0) (2 1) (3 0) (3 1) (3 2))</code>.</pre></blockquote>
+<blockquote><pre><code>(<a href="#list-ec">list-ec</a> (<a href="#%3A">:</a> n 1 4) (<a href="#%3A">:</a> i n) (list n i)) =&gt; ((1 0) (2 0) (2 1) (3 0) (3 1) (3 2))</code>.</pre></blockquote>
 <p>
 In the example, the variable <code>n</code> is first bound to 1
 then to 2 and finally to 3, and for each binding of <code>n</code>
@@ -66,7 +66,7 @@ leading to natural comprehensions such as
 <a href="#append-ec"><code>append-ec</code></a>,
 <a href="#sum-ec"><code>sum-ec</code></a>,
 <a href="#min-ec"><code>min-ec</code></a>,
-<a href="#every?-ec"><code>every?-ec</code></a>,
+<a href="#every%3F-ec"><code>every?-ec</code></a>,
 <a href="#do-ec"><code>do-ec</code></a>, and others.
 Some other natural comprehensions (e.g. <code>gcd-ec</code>) have
 not been included into this SRFI due to their low significance
@@ -80,14 +80,14 @@ included due to their broad applicability.
 
 <li>
 There are typed generators
-(<a href="#:list"><code>:list</code></a>, <a href="#:list"><code>:string</code></a>, ...)
+(<a href="#%3Alist"><code>:list</code></a>, <a href="#%3Alist"><code>:string</code></a>, ...)
 expecting certain types of objects for their arguments.
 These generators usually produce code as efficient as
 hand coded <code>do</code>-loops.
 </li>
 
 <li>
-There is also the special generator <a href="#:"><code>:</code></a>
+There is also the special generator <a href="#%3A"><code>:</code></a>
 (read 'run through')
 dispatching on the value of its argument list at runtime.
 In the examples above, one or two integers were used to define a range.
@@ -98,9 +98,9 @@ performance penalty, both per iteration and during startup of the loop.
 <li>
 Generators can be nested depth-first (as in the example above),
 run in parallel (with an optional <a href="#vars">index variable</a>
-or more generally with <a href="#:parallel"><code>:parallel</code></a>),
-and can be stopped early before (<a href="#:while"><code>:while</code></a>)
-or after (<a href="#:until"><code>:until</code></a>)
+or more generally with <a href="#%3Aparallel"><code>:parallel</code></a>),
+and can be stopped early before (<a href="#%3Awhile"><code>:while</code></a>)
+or after (<a href="#%3Auntil"><code>:until</code></a>)
 producing the current value.
 </li>
 
@@ -110,15 +110,15 @@ The sequence of values can be filtered
 <a href="#and"><code>and</code></a>, <a href="#or"><code>or</code></a>),
 intermediate commands can be evaluated between
 generators (<a href="#begin"><code>begin</code></a>), and
-intermediate variables can be introduced (<a href="#:let"><code>:let</code></a>).
+intermediate variables can be introduced (<a href="#%3Alet"><code>:let</code></a>).
 </li>
 <li>
 The mechanism is fully modular.
 This means that no existing macro or procedure needs
 to be modified when adding
 <a href="#foo-ec">application-specific comprehensions</a>,
-<a href="#:foo">application-specific typed generators</a>,
-or <a href="#:dfoo">application-specific dispatching generators</a>.
+<a href="#%3Afoo">application-specific typed generators</a>,
+or <a href="#%3Adfoo">application-specific dispatching generators</a>.
 </li>
 
 <li>
@@ -233,14 +233,14 @@ The most important instances of <code>&lt;qualifier&gt;</code> are generators.
 These are defined in <a href="#generators">Section "Generators"</a>.
 Generators come in three flavors,
 as <i>typed generators</i>
-(<a href="#:list"><code>:list</code></a>,
-<a href="#:range"><code>:range</code></a> etc.),
-as <i>the dispatching generator</i> <a href="#:"><code>:</code></a>
+(<a href="#%3Alist"><code>:list</code></a>,
+<a href="#%3Arange"><code>:range</code></a> etc.),
+as <i>the dispatching generator</i> <a href="#%3A"><code>:</code></a>
 (pronounced as 'run through'),
 and as combined and modified generators
-(<a href="#:parallel"><code>:parallel</code></a>,
-<a href="#:while"><code>:while</code></a>,
-<a href="#:until"><code>:until</code></a>).
+(<a href="#%3Aparallel"><code>:parallel</code></a>,
+<a href="#%3Awhile"><code>:while</code></a>,
+<a href="#%3Auntil"><code>:until</code></a>).
 Most generators in this SRFI also support an optional
 <a href="#vars">index variable</a> counting the
 values being generated.
@@ -248,9 +248,9 @@ values being generated.
 <p>
 Finally, it is explained how to add a new
 <a href="#foo-ec">application-specific comprehension</a>,
-how to add a new <a href="#:foo">application-specific typed generator</a>,
+how to add a new <a href="#%3Afoo">application-specific typed generator</a>,
 and how to add a new
-<a href="#:dfoo">application-specific dispatching generator</a>.
+<a href="#%3Adfoo">application-specific dispatching generator</a>.
 As this concerns code unknown at the time this is being written,
 the explanation should not be taken as
 a <i>specification</i> in the literal sense.
@@ -738,28 +738,28 @@ the following cases are recognized:
 <table>
 
 <tr>
-<td><a href="#:list"><code>:list</code></a>
+<td><a href="#%3Alist"><code>:list</code></a>
 </td><td>if
 </td><td>for all <i>i</i> in {1..<i>n</i>}:
 <code>(list? </code><i>a</i>[<i>i</i>]<code>)</code>.
 </td></tr>
 
 <tr>
-<td><a href="#:string"><code>:string</code></a>
+<td><a href="#%3Astring"><code>:string</code></a>
 </td><td>if
 </td><td>for all <i>i</i> in {1..<i>n</i>}:
 <code>(string? </code><i>a</i>[<i>i</i>]<code>)</code>.
 </td></tr>
 
 <tr>
-<td><a href="#:vector"><code>:vector</code></a>
+<td><a href="#%3Avector"><code>:vector</code></a>
 </td><td>if
 </td><td>for all <i>i</i> in {1..<i>n</i>}:
 <code>(vector? </code><i>a</i>[<i>i</i>]<code>)</code>.
 </td></tr>
 
 <tr>
-<td><a href="#:range"><code>:range</code></a>
+<td><a href="#%3Arange"><code>:range</code></a>
 </td><td>if
 </td><td><i>n</i> in {1..3} and
 for all <i>i</i> in {1..<i>n</i>}:
@@ -768,7 +768,7 @@ for all <i>i</i> in {1..<i>n</i>}:
 </td></tr>
 
 <tr>
-<td><a href="#:real-range"><code>:real-range</code></a>
+<td><a href="#%3Areal-range"><code>:real-range</code></a>
 </td><td>if
 </td><td><i>n</i> in {1..3} and
 for all <i>i</i> in {1..<i>n</i>}:
@@ -776,7 +776,7 @@ for all <i>i</i> in {1..<i>n</i>}:
 </td></tr>
 
 <tr>
-<td><a href="#:char-range"><code>:char-range</code></a>
+<td><a href="#%3Achar-range"><code>:char-range</code></a>
 </td><td>if
 </td><td><i>n</i> = 2 and
 for all <i>i</i> in {1, 2}:
@@ -784,7 +784,7 @@ for all <i>i</i> in {1, 2}:
 </td></tr>
 
 <tr>
-<td><a href="#:port"><code>:port</code></a>
+<td><a href="#%3Aport"><code>:port</code></a>
 </td><td>if
 </td><td><i>n</i> in {1,2} and
 <code>(input-port? </code><i>a</i>[1]<code>)</code> and
@@ -801,7 +801,7 @@ can be installed by
 yielding an unspecified result,
 and a copy of the initial dispatcher can be obtained as
 <code>(make-initial-:-dispatch)</code>.
-Please refer to the section <a href="#:dfoo-global">below</a>
+Please refer to the section <a href="#%3Adfoo-global">below</a>
 for recommendation how to add cases to the dispatcher.
 </p>
 </dd>
@@ -833,9 +833,9 @@ As a clarifying example, consider<br />
 <dd>
 Runs through the sequence 0, 1, 2, ... of non-negative integers.
 This is most useful in combination with
-<a href="#:parallel"><code>:parallel</code></a>,
-<a href="#:while"><code>:while</code></a>, and
-<a href="#:until"><code>:until</code></a> or with
+<a href="#%3Aparallel"><code>:parallel</code></a>,
+<a href="#%3Awhile"><code>:while</code></a>, and
+<a href="#%3Auntil"><code>:until</code></a> or with
 a non-local exit in the body of the comprehension.
 </dd>
 </dl>
@@ -963,7 +963,7 @@ Runs the variables through a sequence defined by <code>&lt;dispatch&gt;</code>
 and <code>&lt;arg1&gt; &lt;arg&gt;</code>*.
 The purpose of <code>:dispatched</code> is implementing
 dispatched generators, in particular the predefined dispatching
-generator <a href="#:"><code>:</code></a>.
+generator <a href="#%3A"><code>:</code></a>.
 </p>
 <p>
 The working of <code>:dispatched</code> is as follows.
@@ -993,7 +993,7 @@ macro <code>:generator-proc</code> that constructs a generator
 procedure from a typed generator.
 Let <code>(g var arg1 arg ...)</code> be an instance of
 the <code>&lt;generator&gt;</code> syntax, for example an
-<a href="#:foo">application-specific typed generator</a>,
+<a href="#%3Afoo">application-specific typed generator</a>,
 with a single variable <code>var</code> and no index variable.
 Then
 </p>
@@ -1017,7 +1017,7 @@ Otherwise (if there is at least one value to dispatch on),
 the dispatcher must either return a generator procedure
 or <code>#f</code> (= no interest).
 As an example, the following skeleton code defines a dispatcher
-similar to the initial dispatcher of <a href="#:"><code>:</code></a>:
+similar to the initial dispatcher of <a href="#%3A"><code>:</code></a>:
 </p>
 <pre>
 (define (:my-dispatch args)
@@ -1066,10 +1066,10 @@ if they have access to <code>:my-dispatch</code>.
 <p id=":dfoo-global">
 <i>Extending the predefined dispatched generator</i>.
 An alternative to adding a new dispatched generators is extending
-the predefined generator <a href="#:"><code>:</code></a>.
-Technically, extending <a href="#:"><code>:</code></a> means
+the predefined generator <a href="#%3A"><code>:</code></a>.
+Technically, extending <a href="#%3A"><code>:</code></a> means
 installing a new global dispatching procedure using
-<a href="#:-dispatch-set!"><code>:-dispatch-set!</code></a>
+<a href="#%3A-dispatch-set!"><code>:-dispatch-set!</code></a>
 as described above.
 </p>
 <p id="dispatch-union">
@@ -1106,7 +1106,7 @@ After evaluation of this code, the following example will work:
 </p>
 <pre>(list-ec (: c 'abc) c) =&gt; (#\a #\b #\c)</pre>
 <p>
-Adding cases to <a href="#:"><code>:</code></a> is particularly useful
+Adding cases to <a href="#%3A"><code>:</code></a> is particularly useful
 for frequent cases of interactive input.
 Be warned, however, that the advantage of global extension also carries
 the danger of conflicts, unexpected side-effects, and slow dispatching.
@@ -1250,7 +1250,7 @@ define new typed generators.
 To define a new typed generator a hygienic referentially
 transparent macro of the same name is defined to transform
 the generator pattern into an instance of the
-<a href="#:do"><code>:do</code></a>-generator.
+<a href="#%3Ado"><code>:do</code></a>-generator.
 The extension is fully modular, meaning that no other
 macro has to be modified to add the new generator.
 This is achieved by defining the new macro in
@@ -1262,7 +1262,7 @@ Assume the generator syntax <code>(:mygen &lt;var&gt; &lt;arg&gt;)</code>
 is to be implemented, for example running the variable <code>&lt;var&gt;</code>
 through the list <code>(reverse &lt;arg&gt;)</code>.
 The following definition implements <code>:mygen</code>
-in terms of <a href="#:list"><code>:list</code></a>
+in terms of <a href="#%3Alist"><code>:list</code></a>
 using the additional syntactic variable <code>cc</code>
 (read <i>current continuation</i>):
 </p>
@@ -1305,10 +1305,10 @@ variables followed by arguments defining the sequence.
 Secondly, each generator except <code>:do</code>
 can handle an optional index variable.
 This is most easily implemented using
-<a href="#:parallel"><code>:parallel</code></a>
-together with <a href="#:integers"><code>:integers</code></a>.
+<a href="#%3Aparallel"><code>:parallel</code></a>
+together with <a href="#%3Aintegers"><code>:integers</code></a>.
 In case the payload generator needs an index anyhow
-(e.g. <a href="#:vector"><code>:vector</code></a>)
+(e.g. <a href="#%3Avector"><code>:vector</code></a>)
 it is more efficient to add an index-variable if
 none is given and to implement the indexed case.
 Finally, make sure that no syntactic variable of the
@@ -1393,7 +1393,7 @@ constructing a stream in the sense of <a href="#SRFI40">[SRFI 40]</a>.
 Clearly, such a comprehension (<code>stream-ec</code>)
 is not eager at all since it only runs the loops when results are requested.
 It is also possible to define a <code>:stream</code>-generator with
-the same API as <a href="#:list"><code>:list</code></a> but running
+the same API as <a href="#%3Alist"><code>:list</code></a> but running
 through streams instead of lists.
 </p>
 <p>
@@ -1580,16 +1580,16 @@ The other notable addition is
 <a href="#first-ec"><code>first-ec</code></a>, which
 is the fundamental 'early stopping' comprehension.
 It is used to define
-<a href="#any?-ec"><code>any?-ec</code></a> and
-<a href="#every?-ec"><code>every?-ec</code></a>
+<a href="#any%3F-ec"><code>any?-ec</code></a> and
+<a href="#every%3F-ec"><code>every?-ec</code></a>
 which are among the most frequent comprehensions.
 </p>
 <p>
 Concerning the generators, the same principle has been used.
-Additions include <a href="#:range"><code>:range</code></a>
+Additions include <a href="#%3Arange"><code>:range</code></a>
 and friends because they are universally needed, and
-<a href="#:dispatched"><code>:dispatched</code></a> which is
-primarily intended for implementing <a href="#:"><code>:</code></a>.
+<a href="#%3Adispatched"><code>:dispatched</code></a> which is
+primarily intended for implementing <a href="#%3A"><code>:</code></a>.
 </p>
 
 <h3 id="dovetail">Why is the order of enumeration specified?</h3>
@@ -1658,8 +1658,8 @@ is represented by the loop variable itself.
 
 <h3>Why is <code>(: &lt;vars&gt;)</code> illegal?</h3>
 <p>
-It is reasonable and easy to define <code>(<a href="#:">:</a> &lt;vars&gt;)</code>
-as <code>(<a href="#:integers">:integers</a> &lt;vars&gt;)</code>,
+It is reasonable and easy to define <code>(<a href="#%3A">:</a> &lt;vars&gt;)</code>
+as <code>(<a href="#%3Aintegers">:integers</a> &lt;vars&gt;)</code>,
 enumerating the non-negative integers.
 However, it turned out that a frequent mistake in using the
 eager comprehensions is to forget either the variable
@@ -1670,7 +1670,7 @@ equally pleasant in interactive sessions), it is not allowed.
 
 <h3>Why is there no <code>:sequential</code>?</h3>
 <p>
-Just like <a href="#:parallel"><code>:parallel</code></a>
+Just like <a href="#%3Aparallel"><code>:parallel</code></a>
 enumerates generators in
 parallel, a <code>:sequential</code> generator could
 enumerate a concatenation of several generator, starting
@@ -1687,7 +1687,7 @@ It is easy to add <code>let</code>, <code>let*</code>,
 and <code>letrec</code> as cases to <code>&lt;qualifier&gt;</code>.
 This would allow more sophisticated local variables
 and expressions than possible with
-<code>(<a href="#:let">:let</a> &lt;vars&gt; &lt;expression&gt;)</code> and
+<code>(<a href="#%3Alet">:let</a> &lt;vars&gt; &lt;expression&gt;)</code> and
 <code>(<a href="#begin">begin</a> &lt;sequence&gt;</code>*<code>)</code>.
 In particular, a local <code>&lt;definition&gt;</code>
 in the sense of <a href="#R5RS">[R5RS, 7.1.5.]</a> would
@@ -1718,7 +1718,7 @@ be a serious violation of the
 <h3>Why is there no <code>:nested</code> generator?</h3>
 <p>
 The specification above defines <a href="#nested"><code>nested</code></a>
-as a qualifier but <a href="#:parallel"><code>:parallel</code></a>
+as a qualifier but <a href="#%3Aparallel"><code>:parallel</code></a>
 as a generator.
 In particular, this makes it impossible to make parallel
 generators from nested ones.
@@ -1726,7 +1726,7 @@ generators from nested ones.
 <p>
 This design simply reflects an implementability limitation.
 All component generators of <code>:parallel</code> are
-transformed into <a href="#:do"><code>:do</code></a>-generators
+transformed into <a href="#%3Ado"><code>:do</code></a>-generators
 and these can be merged into a parallel generator.
 However, nested generators cannot be merged easily without
 losing the type of the generator,
@@ -1741,8 +1741,8 @@ run through the sequence.
 <p>
 In fact, the reference implementation makes sure
 <a href="#first-ec"><code>first-ec</code></a>,
-<a href="#any?-ec"><code>any?-ec</code></a>, and
-<a href="#every?-ec"><code>every?-ec</code></a>
+<a href="#any%3F-ec"><code>any?-ec</code></a>, and
+<a href="#every%3F-ec"><code>every?-ec</code></a>
 execute efficiently so they can be used conveniently
 as in
 <code>(every?-ec (:list x my-list) (pred? x))</code>.
@@ -1751,26 +1751,26 @@ as in
 <h3>Why this whole <code>:dispatched</code> business?</h3>
 <p>
 It is specified above that <i>the</i> dispatching generator,
-called <a href="#:"><code>:</code></a>, is just a special case
-of <a href="#:dispatched"><code>:dispatched</code></a> using
+called <a href="#%3A"><code>:</code></a>, is just a special case
+of <a href="#%3Adispatched"><code>:dispatched</code></a> using
 a global dispatching procedure.
 Alternatively, a simple fixed global mechanism to extend
-<a href="#:"><code>:</code></a> could have been used.
+<a href="#%3A"><code>:</code></a> could have been used.
 This is much simpler but does not support the definition
 of new dispatched generators.
 </p>
 <p>
-The purpose of <a href="#:dispatched"><code>:dispatched</code></a>
+The purpose of <a href="#%3Adispatched"><code>:dispatched</code></a>
 and its utilities
-(<a href="#:generator-proc"><code>:generator-proc</code></a> and
+(<a href="#%3Agenerator-proc"><code>:generator-proc</code></a> and
 <a href="#dispatch-union"><code>dispatch-union</code></a>)
 is the following.
-Assume <a href="#:"><code>:</code></a> is to be used inside a
+Assume <a href="#%3A"><code>:</code></a> is to be used inside a
 module but it is essential that no other module can spoil it,
 e.g. by installing a very slow dispatcher.
 The recommended way to proceed in this case is to define a
 local copy of the original dispatching generator
-<a href="#:"><code>:</code></a>,
+<a href="#%3A"><code>:</code></a>,
 for example with the following code
 </p>
 <pre>
@@ -1785,7 +1785,7 @@ for example with the following code
      (:dispatched cc var :my-dispatch arg1 arg ...) ))),</pre>
 <p>
 and to use the new generator <code>:my</code> instead of
-<a href="#:"><code>:</code></a>.
+<a href="#%3A"><code>:</code></a>.
 </p>
 <p>
 An alternative for the dispatching mechanism as defined in
@@ -1795,7 +1795,7 @@ The dispatching generator would then access a dynamically
 scoped variable to find the dispatcher, allowing full
 control over dispatching.
 However, this approach does not solve the dilemma that it is
-sometimes useful that <a href="#:"><code>:</code></a> is global
+sometimes useful that <a href="#%3A"><code>:</code></a> is global
 and sometimes undesired.
 The approach specified for this SRFI addresses this dilemma
 by offering options.
@@ -1803,15 +1803,15 @@ by offering options.
 <p>
 Another alternative for dealing with the dispatching
 problem is adding an optional argument to the syntax of
-<a href="#:"><code>:</code></a> through which the dispatcher
+<a href="#%3A"><code>:</code></a> through which the dispatcher
 can be passed explicitly.
-However, as <a href="#:"><code>:</code></a> has variable
+However, as <a href="#%3A"><code>:</code></a> has variable
 arity and the identifier for the variable cannot be
 distinguished from any value for a dispatcher,
 this is syntactically problematic.
 </p>
 
-<h3>Why is there no local mechanism for adding to <a href="#:"><code>:</code></a>?</h3>
+<h3>Why is there no local mechanism for adding to <a href="#%3A"><code>:</code></a>?</h3>
 <p>
 According to <a href="#R5RS">[R5RS, 7.1.6.]</a> macros can only
 be defined at the level of the <code>&lt;program&gt;</code> syntax.
@@ -1826,7 +1826,7 @@ headache to those trying to understand other people's code.
 
 <h3>Why are dispatchers unary?</h3>
 <p>
-As defined in <a href="#:dispatched"><code>:dispatched</code></a>,
+As defined in <a href="#%3Adispatched"><code>:dispatched</code></a>,
 a dispatching procedure is called with a single argument being
 the list of values to dispatch on.
 An alternative is to <code>apply</code> the dispatcher to the
@@ -1869,7 +1869,7 @@ clear any other 'fold' that may be around.
 
 <h3>Why is <code>:char-range</code> not defined by <code>integer-&gt;char</code>?</h3>
 <p>
-The definition of <a href="#:char-range"><code>:char-range</code></a>
+The definition of <a href="#%3Achar-range"><code>:char-range</code></a>
 specifies a sequence of adjacent characters ordered by <code>char&lt;=?</code>.
 The reason for not using <code>char-&gt;integer</code> and
 <code>integer-&gt;char</code> is the fact that
@@ -2019,9 +2019,9 @@ real-world examples.
 The file <a href="timing.scm">timing.scm</a> contains some
 code to measure an idea of performance of the comprehensions.
 A hand-coded <code>do</code>-loop, the typed generator
-<code>(<a href="#:range">:range</a> </code><i>n</i><code>)</code>,
+<code>(<a href="#%3Arange">:range</a> </code><i>n</i><code>)</code>,
 and the dispatching generator
-<code>(<a href="#:">:</a> </code><i>n</i><code>)</code>
+<code>(<a href="#%3A">:</a> </code><i>n</i><code>)</code>
 are compared.
 For each loop we compare the time needed
 per iteration and the time needed to construct the loop (the startup delay).
@@ -2207,7 +2207,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     <hr />
     <address>Author: <a href="mailto:sebastian.egner@philips.com">Sebastian Egner</a></address>
-    <address>Editor: <a href="mailto:srfi minus editors at srfi dot schemers dot org">Francisco Solsona</a></address>
+    <address>Editor: <a href="mailto:srfi%20minus%20editors%20at%20srfi%20dot%20schemers%20dot%20org">Francisco Solsona</a></address>
 <!-- Created: Tue Feb 4 13:21:00 MST 2003 -->
 <!-- hhmts start -->
 Last modified: Sun Jan 28 13:40:34 MET 2007
